@@ -6,11 +6,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="easy-deco",
+    name="easy_deco",
     version="0.0.1",
     author="Carlos Rivero",
     author_email="cdrr.rivero@gmail.com",
-    description="An useful easy-deco package for any projects",
+    description="An useful easy_deco package for any projects",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
