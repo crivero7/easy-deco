@@ -6,8 +6,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="RackioAI",
-    version="0.0.5",
+    name="easy-deco",
+    version="0.0.1",
     author="Carlos Rivero",
     author_email="cdrr.rivero@gmail.com",
     description="An useful decorators package for any projects",
