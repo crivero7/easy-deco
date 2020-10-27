@@ -4,7 +4,7 @@ from .core import decorator
 @decorator
 def progress_bar(func, *args, **kwargs):
     """
-
+    ...Documentation here...
     """
     defaultOptions = {'desc': 'Reading files',
                       'unit': 'Files'}

@@ -3,7 +3,7 @@ from .core import decorator
 @decorator
 def raise_error(func, args , kwargs):
     """
-
+    ...Documentation here...
     """
     try:
         return func(*args, **kwargs)

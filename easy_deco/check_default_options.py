@@ -3,7 +3,7 @@ from .core import decorator
 @decorator
 def check_default_options(func, args, options):
     """
-
+    ...Documentation here...
     """
     default_options = func(*args, **options)
 
