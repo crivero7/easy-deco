@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="easy-deco",
-    version="0.0.0",
+    version="0.0.1",
     author="Carlos Rivero",
     author_email="cdrr.rivero@gmail.com",
     description="An useful easy-deco package for any projects",
