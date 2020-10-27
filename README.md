@@ -23,7 +23,7 @@ from easy_deco import *
 ___
 ## Documentation
 
-The RackioAI documentation can be found in [easy-deco Documentation](https://rackioai.readthedocs.io/en/latest/)
+The RackioAI documentation can be found in [easy-deco Documentation](https://easy-deco.readthedocs.io/en/latest/)
 
 # Todo
 * Changelog
