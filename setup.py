@@ -7,10 +7,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="easy-deco",
-    version="0.0.1",
+    version="0.0.0",
     author="Carlos Rivero",
     author_email="cdrr.rivero@gmail.com",
-    description="An useful decorators package for any projects",
+    description="An useful easy-deco package for any projects",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
