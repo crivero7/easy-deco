@@ -4,7 +4,27 @@ from .core import decorator
 @decorator
 def progress_bar(func, *args, **kwargs):
     """
-    ...Documentation here...
+    This decorator allows to you add a progress bar in any function where you want to process any iterable object
+
+    ___
+    **Parameters**
+
+    * **desc:** key word argument (kwargs) (str) Progress bar description
+    * **unit:** key word argument (kwargs) (str) unit measurement, if you reading a list of files so you can use *Files*
+    so you will get in the progress bar 'Files/s' when it is charging
+
+    ___
+
+    ## Snippet code
+
+    ```python
+    >>> from easy_deco import progress_bar
+    >>> @progress_bar(desc='Loading files...', unit='files')
+    >>> def read_files(self, filenames):
+            
+            read_file(filenames)
+
+    ```
     """
     defaultOptions = {'desc': 'Reading files',
                       'unit': 'Files'}

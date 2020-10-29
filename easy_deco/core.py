@@ -3,6 +3,27 @@ import functools
 def decorator(declared_decorator):
     """
     Create a decorator out of a function, which will be used as a wrapper.
+
+    ## Snippet code
+
+    ```python
+    >>> from easy_deco import decorator
+    >>> @decorator
+    >>> def func():
+            "Define function"
+    ```
+
+    Then, su can use your func as a decorator with other function
+
+    ## Snnipet code
+
+    ```python
+    >>> @func
+    >>> def another_func():
+            "Define another function"
+
+    ```
+
     """
 
     @functools.wraps(declared_decorator)
