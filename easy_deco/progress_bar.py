@@ -21,7 +21,7 @@ def progress_bar(func, *args, **kwargs):
     >>> from easy_deco import progress_bar
     >>> @progress_bar(desc='Loading files...', unit='files')
     >>> def read_files(self, filenames):
-            
+
             read_file(filenames)
 
     ```
