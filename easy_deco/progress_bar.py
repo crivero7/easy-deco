@@ -3,7 +3,6 @@ from .core import decorator
 import functools, types
 
 
-
 @decorator
 def progress_bar(func, *args, **kwargs):
     """
@@ -55,32 +54,30 @@ def progress_bar(func, *args, **kwargs):
 
 class ProgressBar(object):
 
-    def __init__(self, f):
-        self.func = f
+    def __init__(self, **kw):
+        """
 
-    def __get__(self, instance, cls):
-        self.instance = instance
-        return types.MethodType(self, instance)
+        """
+        default_kw = {'desc': 'Reading files', 'unit': 'Files'}
+        self.options = {key: kw[key] if key in list(kw.keys()) else default_kw[key] for key in list(default_kw.keys())}
 
-    def __call__(self, *args, **kwargs):
-        default_options = {'desc': 'Reading files',
-                           'unit': 'Files',
-                           'gen': False}
+    def __call__(self, fn):
+        """
 
-        options = {key: kwargs[key] if key in list(kwargs.keys()) else default_options[key] for key in
-                   list(default_options.keys())}
+        """
+        @functools.wraps(fn)
+        def decorated(*args):
+            """
 
-        if not hasattr(args, '__iter__'):
-            raise ValueError('You must provide an iterableObject in {}'.format(self.func.__name__))
+            """
+            cls, iterable = args
 
-        for i in tqdm(range(len(args)), desc=options['desc'], unit=options['unit']):
+            if not hasattr(iterable, '__iter__'):
 
-            if options['gen']:
+                raise ValueError('You must provide an iterableObject in {}'.format(fn.__name__))
 
-                yield self.func(args[i], **kwargs)
+            for i in tqdm(range(len(iterable)), desc=self.options['desc'], unit=self.options['unit']):
 
-            else:
+                fn(cls, iterable[i])
 
-                result = self.func(*args, **kwargs)
-
-                return result
+        return decorated
