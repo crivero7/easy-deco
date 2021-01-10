@@ -66,7 +66,7 @@ class ProgressBar(object):
 
         """
         @functools.wraps(fn)
-        def decorated(*args):
+        def decorated(*args, **kwargs):
             """
 
             """
@@ -78,6 +78,6 @@ class ProgressBar(object):
 
             for i in tqdm(range(len(iterable)), desc=self.options['desc'], unit=self.options['unit']):
 
-                fn(cls, iterable[i])
+                fn(cls, iterable[i], **kwargs)
 
         return decorated
