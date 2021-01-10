@@ -1,5 +1,4 @@
 from easy_deco.progress_bar import ProgressBar
-from time import sleep
 
 
 class Test:
