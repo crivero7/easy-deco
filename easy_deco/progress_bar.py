@@ -1,5 +1,8 @@
 from tqdm import tqdm
 from .core import decorator
+import functools, types
+
+
 
 @decorator
 def progress_bar(func, *args, **kwargs):
@@ -48,3 +51,36 @@ def progress_bar(func, *args, **kwargs):
 
             result = func(self, iterableObject[i])
             return result
+
+
+class ProgressBar(object):
+
+    def __init__(self, f):
+        self.func = f
+
+    def __get__(self, instance, cls):
+        self.instance = instance
+        return types.MethodType(self, instance)
+
+    def __call__(self, *args, **kwargs):
+        default_options = {'desc': 'Reading files',
+                           'unit': 'Files',
+                           'gen': False}
+
+        options = {key: kwargs[key] if key in list(kwargs.keys()) else default_options[key] for key in
+                   list(default_options.keys())}
+
+        if not hasattr(args, '__iter__'):
+            raise ValueError('You must provide an iterableObject in {}'.format(self.func.__name__))
+
+        for i in tqdm(range(len(args)), desc=options['desc'], unit=options['unit']):
+
+            if options['gen']:
+
+                yield self.func(args[i], **kwargs)
+
+            else:
+
+                result = self.func(*args, **kwargs)
+
+                return result
