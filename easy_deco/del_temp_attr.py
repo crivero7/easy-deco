@@ -1,12 +1,13 @@
 import inspect
 
-class DelTempAttr(object):
 
-    def __init__(self):
+class Del_Temp_Attr(object):
+
+    def __init__(self, cls):
         """
 
         """
-        pass
+        self._cls = cls
         
     def __call__(self, fn):
         """
@@ -14,38 +15,42 @@ class DelTempAttr(object):
 
         **Parameters**
 
-        * **:param f:** (Function) function to be decorated
+        * **:param fn:** (Function) function to be decorated
         """
         def wrapper(*args, **kwargs):
 
             result = fn(*args, **kwargs)
+            cls = self._cls
 
-            attrs = inspect.getmembers(self, lambda attr:not(inspect.isroutine(attr)))
+            for instance in getattr(cls, "_instances"):
 
-            for attr, _ in attrs:
+                for attr in list(instance.__dict__.keys()):
 
-                if attr.startswith('_') and attr.endswith('_'):
-                    
-                    if not(attr.startswith('__')) and not(attr.endswith('__')):
+                    if attr.startswith('_') and attr.endswith('_'):
 
-                        delattr(self, attr)
-
-            self.data = result
+                        if not(attr.startswith('__') and attr.endswith('__')):
+                            
+                            delattr(instance, attr)
 
             return result
 
         return wrapper
 
-def all_methods(decorator):
-    
-    def decorate(cls):
-        
-        for name, fn in inspect.getmembers(cls, inspect.ismethod):
+
+class DelTempAttr(type):
+
+    def __new__(meta, name, bases, class_dict):
+
+        klass = super().__new__(meta, name, bases, class_dict)
+
+        for key in dir(klass):
             
-            if not name.startswith('__'):
-                        
-                setattr(cls, name, decorator(fn))
-        
-        return cls
-    
-    return decorate
+            value = getattr(klass, key)
+
+            if not key.startswith('_'):
+
+                del_attr = Del_Temp_Attr(klass)
+                wrapped = del_attr(value)
+                setattr(klass, key, wrapped)
+
+        return klass
