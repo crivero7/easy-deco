@@ -18,7 +18,7 @@ class DelTempAttr(object):
         """
         def wrapper(*args, **kwargs):
 
-            result = f(*args, **kwargs)
+            result = fn(*args, **kwargs)
 
             attrs = inspect.getmembers(self, lambda attr:not(inspect.isroutine(attr)))
 
