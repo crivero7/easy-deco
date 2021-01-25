@@ -58,7 +58,10 @@ class ProgressBar(object):
         """
 
         """
-        default_kw = {'desc': 'Reading files', 'unit': 'Files'}
+        default_kw = {
+            'desc': 'Reading files', 
+            'unit': 'Files',
+            'activate': True}
         self.options = {key: kw[key] if key in list(kw.keys()) else default_kw[key] for key in list(default_kw.keys())}
 
     def __call__(self, fn):
@@ -71,13 +74,22 @@ class ProgressBar(object):
 
             """
             cls, iterable = args
+            activate = self.options['activate']
 
             if not hasattr(iterable, '__iter__'):
 
                 raise ValueError('You must provide an iterableObject in {}'.format(fn.__name__))
 
-            for i in tqdm(range(len(iterable)), desc=self.options['desc'], unit=self.options['unit']):
+            if activate:
 
-                fn(cls, iterable[i], **kwargs)
+                for i in tqdm(range(len(iterable)), desc=self.options['desc'], unit=self.options['unit']):
+
+                    fn(cls, iterable[i], **kwargs)
+            
+            else:
+
+                for i in range(len(iterable)):
+    
+                    fn(cls, iterable[i], **kwargs)
 
         return decorated
