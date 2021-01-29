@@ -9,7 +9,7 @@ def del_temp_attr(fn):
 
     * **:param fn:** (Function) function to be decorated
     """
-    @functools.wraps(func)
+    @functools.wraps(fn)
     def wrapper(*args, **kwargs):
 
         result = fn(*args, **kwargs)
