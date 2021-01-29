@@ -1,4 +1,5 @@
 import inspect
+import functools
 
 def del_temp_attr(fn):
     """
@@ -8,6 +9,7 @@ def del_temp_attr(fn):
 
     * **:param fn:** (Function) function to be decorated
     """
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
 
         result = fn(*args, **kwargs)
